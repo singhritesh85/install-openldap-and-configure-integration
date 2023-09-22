@@ -4,7 +4,7 @@ chown ldap:ldap /var/lib/ldap/DB_CONFIG
 systemctl start slapd 
 systemctl enable slapd
 
-slappasswd
+slappasswd               ########  Password generated from here can be used in file chrootpw.ldif and chdomain.ldif
 
 ldapadd -Y EXTERNAL -H ldapi:/// -f chrootpw.ldif 
 ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif 
