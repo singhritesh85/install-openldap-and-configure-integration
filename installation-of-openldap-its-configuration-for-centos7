@@ -19,7 +19,7 @@ ldapadd -x -D cn=ldapadm,dc=singhritesh85,dc=com -W -f basedomain.ldif
 
 ##########################Install php7.4###############################
 
-sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
 yum install -y yum-utils
 sudo yum-config-manager --enable remi-php74
 yum install httpd httpd-tools php php-fpm php-mysqlnd php-opcache php-gd php-xml php-mbstring php-json php-gmp php-zip php-ldap -y
