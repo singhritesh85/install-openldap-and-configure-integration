@@ -1,0 +1,38 @@
+yum install openldap openldap-servers openldap-clients -y
+cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+chown ldap:ldap /var/lib/ldap/DB_CONFIG
+systemctl start slapd
+systemctl enable slapd
+
+
+slappasswd
+
+
+ldapadd -Y EXTERNAL -H ldapi:/// -f chrootpw.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f chdomain.ldif
+ldapadd -x -D cn=ldapadm,dc=singhritesh85,dc=com -W -f basedomain.ldif
+
+
+
+##########################Install php7.4###############################
+
+sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum install -y yum-utils
+sudo yum-config-manager --enable remi-php74
+yum install httpd httpd-tools php php-fpm php-mysqlnd php-opcache php-gd php-xml php-mbstring php-json php-gmp php-zip php-ldap -y
+sudo systemctl enable --now php-fpm
+sudo systemctl enable --now httpd
+sudo systemctl status php-fpm
+sudo systemctl status httpd
+
+#######################################################################
+
+yum install -y wget vim git -y
+wget https://github.com/LDAPAccountManager/lam/releases/download/lam_8_4/ldap-account-manager-8.4-0.fedora.1.noarch.rpm
+yum install -y ldap-account-manager-8.4-0.fedora.1.noarch.rpm
+   
+sestatus
+setenforce 0
